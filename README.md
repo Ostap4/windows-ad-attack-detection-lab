@@ -52,19 +52,19 @@ All actions were performed only in my own isolated lab. The scenario does not ex
 
 The VirtualBox NAT Network was named `SOC-LAB`. All three machines are connected to the same `10.125.10.0/24` segment. Windows 10 Pro was used on WIN10 because this edition supports joining an Active Directory domain.
 
-<img src="./Pasted image 20260721190259.png" width="697">
+<img src="./assets/Pasted image 20260721190259.png" width="697">
 
 *Figure 1 — List of the Kali Linux, WIN10, and DC01 virtual machines created in VirtualBox.*
 
-<img src="./Pasted image 20260721190457.png">
+<img src="./assets/Pasted image 20260721190457.png">
 
 *Figure 2 — Main resources and parameters of one of the virtual machines in VirtualBox.*
 
-<img src="./Pasted image 20260721190527.png" width="690">
+<img src="./assets/Pasted image 20260721190527.png" width="690">
 
 *Figure 3 — Additional parameters of the virtual machine and connected devices.*
 
-<img src="./Pasted image 20260721191829.png" width="697">
+<img src="./assets/Pasted image 20260721191829.png" width="697">
 
 *Figure 4 — NAT Network `SOC-LAB` configuration with the `10.125.10.0/24` subnet.*
 
@@ -73,31 +73,31 @@ The VirtualBox NAT Network was named `SOC-LAB`. All three machines are connected
 
 DC01 was configured as the `corp.test` domain controller, DNS server, and Kerberos KDC. It was assigned the static address `10.125.10.30`. The internal DNS zone serves domain names, while external requests are forwarded through a DNS forwarder.
 
-<img src="./Pasted image 20260721192325.png" width="442">
+<img src="./assets/Pasted image 20260721192325.png" width="442">
 
 *Figure 5 — Verification of the `DC01` host name and local administrator context.*
 
-<img src="./Pasted image 20260721192509.png">
+<img src="./assets/Pasted image 20260721192509.png">
 
 *Figure 6 — Static IP configuration of DC01: address `10.125.10.30`, gateway, and DNS.*
 
-<img src="./Pasted image 20260721192618.png">
+<img src="./assets/Pasted image 20260721192618.png">
 
 *Figure 7 — Installed Windows Server roles, including AD DS and DNS Server.*
 
-<img src="./Pasted image 20260721192704.png">
+<img src="./assets/Pasted image 20260721192704.png">
 
 *Figure 8 — Structure of the `corp.test` domain in Active Directory Users and Computers.*
 
-<img src="./Pasted image 20260721192756.png">
+<img src="./assets/Pasted image 20260721192756.png">
 
 *Figure 9 — `corp.test` DNS zone and domain service records.*
 
-<img src="./Pasted image 20260721193006.png">
+<img src="./assets/Pasted image 20260721193006.png">
 
 *Figure 10 — DNS forwarder configured on DC01 for external name resolution.*
 
-<img src="./Pasted image 20260721193328.png">
+<img src="./assets/Pasted image 20260721193328.png">
 
 *Figure 11 — Verification of internal and external DNS queries from DC01.*
 
@@ -106,23 +106,23 @@ DC01 was configured as the `corp.test` domain controller, DNS server, and Kerber
 
 WIN10 was assigned the static address `10.125.10.20`, gateway `10.125.10.1`, and DNS `10.125.10.30`. Because the client's only DNS server was DC01, shutting down the domain controller primarily caused a loss of DNS resolution; this explains the situation where the network parameters appeared correct, but web resources could not be opened by name.
 
-<img src="./Pasted image 20260721195503.png">
+<img src="./assets/Pasted image 20260721195503.png">
 
 *Figure 12 — Confirmation of the Windows 10 Pro edition on the victim machine.*
 
-<img src="./Pasted image 20260721195930.png">
+<img src="./assets/Pasted image 20260721195930.png">
 
 *Figure 13 — Verification of the `WIN10` workstation name.*
 
-<img src="./Pasted image 20260721200232.png">
+<img src="./assets/Pasted image 20260721200232.png">
 
 *Figure 14 — WIN10 IP configuration with address `10.125.10.20` and DNS `10.125.10.30`.*
 
-<img src="./Pasted image 20260721201248.png">
+<img src="./assets/Pasted image 20260721201248.png">
 
 *Figure 15 — Initial ICMP verification: some requests between DC01 and WIN10 were blocked.*
 
-<img src="./Pasted image 20260721201451.png">
+<img src="./assets/Pasted image 20260721201451.png">
 
 *Figure 16 — Verification of the DNS zone and DC01 address from WIN10.*
 
@@ -146,15 +146,15 @@ Parameters:
 `-RemoteAddress` allows packets only from DC01;
 `-Profile Any` makes the rule active regardless of the current network profile. Windows Firewall was not disabled.
 
-<img src="./Pasted image 20260721203320.png">
+<img src="./assets/Pasted image 20260721203320.png">
 
 *Figure 17 — Creation of a narrow Windows Firewall rule for ICMP Echo Request from `10.125.10.30`.*
 
-<img src="./Pasted image 20260721203459.png">
+<img src="./assets/Pasted image 20260721203459.png">
 
 *Figure 18 — Successful bidirectional `ping` after adding the Windows Firewall rule.*
 
-<img src="./Pasted image 20260721204016.png">
+<img src="./assets/Pasted image 20260721204016.png">
 
 *Figure 19 — Resolution of the domain controller's service DNS name from WIN10.*
 
@@ -172,23 +172,23 @@ The first command passes the output of `systeminfo` to `findstr`;
 `/I` disables case sensitivity.
 `nltest /dsgetdc:corp.test` asks Windows to find the controller of the specified domain and return its parameters.
 
-<img src="./Pasted image 20260721204222.png">
+<img src="./assets/Pasted image 20260721204222.png">
 
 *Figure 20 — Adding WIN10 to the `corp.test` domain.*
 
-<img src="./Pasted image 20260721204302.png">
+<img src="./assets/Pasted image 20260721204302.png">
 
 *Figure 21 — Windows message confirming successful joining to the domain.*
 
-<img src="./Pasted image 20260721205520.png">
+<img src="./assets/Pasted image 20260721205520.png">
 
 *Figure 22 — Verification of `hostname`, `whoami`, and domain membership on WIN10.*
 
-<img src="./Pasted image 20260721211138.png">
+<img src="./assets/Pasted image 20260721211138.png">
 
 *Figure 23 — WIN10 computer object in the Active Directory container.*
 
-<img src="./Pasted image 20260721212433.png">
+<img src="./assets/Pasted image 20260721212433.png">
 
 *Figure 24 — The `nltest /dsgetdc:corp.test` command finds DC01 at address `10.125.10.30`.*
 
@@ -215,42 +215,42 @@ wevtutil sl "Microsoft-Windows-Sysmon/Operational" /ms:268435456
 - the `*Sysmon*` wildcard finds the service regardless of its exact name;
 - `wevtutil sl` changes the log settings, and `/ms:268435456` sets the maximum to 256 MiB.
 
-<img src="./Pasted image 20260722121013.png">
+<img src="./assets/Pasted image 20260722121013.png">
 
 *Figure 25 — Initial `WIN10\LabAdmin` administrative context before installing Sysmon.*
 
-<img src="./Pasted image 20260722122754.png">
+<img src="./assets/Pasted image 20260722122754.png">
 
 *Figure 26 — Creation of the `C:\Tools\Sysmon` directory.*
 
-<img src="./Pasted image 20260722123052.png">
+<img src="./assets/Pasted image 20260722123052.png">
 
 *Figure 27 — Sysmon files and the `sysmonconfig.xml` configuration in the working directory.*
 
-<img src="./Pasted image 20260722123330.png">
+<img src="./assets/Pasted image 20260722123330.png">
 
 *Figure 28 — Starting the Sysmon installation with the sysmon-modular configuration.*
 
-<img src="./Pasted image 20260722123545.png">
+<img src="./assets/Pasted image 20260722123545.png">
 
 *Figure 29 — Confirmation of the Sysmon service status after installation.*
 
-<img src="./Pasted image 20260722123741.png">
+<img src="./assets/Pasted image 20260722123741.png">
 
 *Figure 30 — Test launch of `notepad.exe` to verify telemetry.*
 
 
 During the first verification, I encountered the following problem: `notepad.exe` did not appear as Sysmon Event ID 1, but Event ID 10 was present. After brief research on several forums, I concluded that PowerShell “started the process through Event 10.” Event ID 10 is **Process Access**, meaning one process opening another. The presence or absence of Event ID 1 is determined by the rules of the active Sysmon configuration. For an unambiguous verification, a `cmd.exe` process with a unique marker was created, after which Event ID 1 was found.
 
-<img src="./Pasted image 20260722130458.png">
+<img src="./assets/Pasted image 20260722130458.png">
 
 *Figure 31 — Sysmon Event ID 10 for one process accessing another; this is not a process creation event.*
 
-<img src="./Pasted image 20260722132614.png">
+<img src="./assets/Pasted image 20260722132614.png">
 
 *Figure 32 — Test launch of `cmd.exe` with a unique marker.*
 
-<img src="./Pasted image 20260722132744.png">
+<img src="./assets/Pasted image 20260722132744.png">
 
 *Figure 33 — Sysmon Event ID 1 confirms the creation of the test `cmd.exe` process.*
 
@@ -276,15 +276,15 @@ In `reg.exe add`: `/v` specifies the value name,
 The parameter allows the command line to be included in 4688. 
 In the test, `/c` executes the command and terminates `cmd.exe`.
 
-<img src="./Pasted image 20260722135644.png">
+<img src="./assets/Pasted image 20260722135644.png">
 
 *Figure 34 — Enabled Audit Process Creation and command-line recording in Security Event ID 4688.*
 
-<img src="./Pasted image 20260722140043.png">
+<img src="./assets/Pasted image 20260722140043.png">
 
 *Figure 35 — Execution of the test command `cmd.exe /c "echo SOC-LAB-4688-TEST"`.*
 
-<img src="./Pasted image 20260722140008.png">
+<img src="./assets/Pasted image 20260722140008.png">
 
 *Figure 36 — Security Event ID 4688 with the test marker in the command line.*
 
@@ -325,27 +325,27 @@ a `DWord` with a value of `1` enables the corresponding policy;
 `Out-Null` hides service output. 
 A separate `OutputDirectory` directory was not specified, so the transcripts were created in the standard PowerShell location, as shown in the screenshots.
 
-<img src="./Pasted image 20260722140726.png">
+<img src="./assets/Pasted image 20260722140726.png">
 
 *Figure 37 — Registry settings for PowerShell Script Block, Module, and Transcription Logging.*
 
-<img src="./Pasted image 20260722141757.png">
+<img src="./assets/Pasted image 20260722141757.png">
 
 *Figure 38 — PowerShell Event ID 4103 generated by a test command.*
 
-<img src="./Pasted image 20260722141825.png">
+<img src="./assets/Pasted image 20260722141825.png">
 
 *Figure 39 — PowerShell Event ID 4104 with the text of the test code block.*
 
-<img src="./Pasted image 20260722142209.png">
+<img src="./assets/Pasted image 20260722142209.png">
 
 *Figure 40 — Execution of the `SOC-LAB-TRANSCRIPT-TEST` marker in PowerShell.*
 
-<img src="./Pasted image 20260722143058.png">
+<img src="./assets/Pasted image 20260722143058.png">
 
 *Figure 41 — Created PowerShell transcript file.*
 
-<img src="./Pasted image 20260722143030.png">
+<img src="./assets/Pasted image 20260722143030.png">
 
 *Figure 42 — Transcript contents with commands, user, host, and timestamps.*
 
@@ -364,19 +364,19 @@ wevtutil gl "Microsoft-Windows-WinRM/Operational"
 `/ms:67108864` sets 64 MiB, and `gl` reads its configuration.
 `Microsoft-Windows-TaskScheduler/Operational` was also enabled.
 
-<img src="./Pasted image 20260722143311.png">
+<img src="./assets/Pasted image 20260722143311.png">
 
 *Figure 43 — Enabling the WinRM Operational log and setting the maximum size to 64 MiB.*
 
-<img src="./Pasted image 20260722143824.png">
+<img src="./assets/Pasted image 20260722143824.png">
 
 *Figure 44 — Location of the `Microsoft-Windows-WinRM/Operational` log in Event Viewer.*
 
-<img src="./Pasted image 20260722144135.png">
+<img src="./assets/Pasted image 20260722144135.png">
 
 *Figure 45 — Enabling the Task Scheduler operational log through Event Viewer.*
 
-<img src="./Pasted image 20260722144256.png">
+<img src="./assets/Pasted image 20260722144256.png">
 
 *Figure 46 — Location of the `Microsoft-Windows-TaskScheduler/Operational` log.*
 
@@ -389,47 +389,47 @@ runas /user:WIN10\LabAdmin cmd
 
 `/user:` specifies the account context, and `cmd` is the program to be started after successful authentication.
 
-<img src="./Pasted image 20260722155332.png">
+<img src="./assets/Pasted image 20260722155332.png">
 
 *Figure 47 — Enabling auditing of successful and failed logons on WIN10.*
 
-<img src="./Pasted image 20260722152900.png">
+<img src="./assets/Pasted image 20260722152900.png">
 
 *Figure 48 — Enabling the Audit Special Logon category for 4672 events.*
 
-<img src="./Pasted image 20260722152951.png">
+<img src="./assets/Pasted image 20260722152951.png">
 
 *Figure 49 — Enabling auditing of local security group management.*
 
-<img src="./Pasted image 20260722153049.png">
+<img src="./assets/Pasted image 20260722153049.png">
 
 *Figure 50 — Enabling auditing of local account management.*
 
-<img src="./Pasted image 20260722153208.png">
+<img src="./assets/Pasted image 20260722153208.png">
 
 *Figure 51 — Applying local policies with the `gpupdate /force` command.*
 
-<img src="./Pasted image 20260722153402.png">
+<img src="./assets/Pasted image 20260722153402.png">
 
 *Figure 52 — Authentication test through `runas /user:WIN10\LabAdmin cmd`.*
 
-<img src="./Pasted image 20260722155408.png">
+<img src="./assets/Pasted image 20260722155408.png">
 
 *Figure 53 — Security Event ID 4625 after an intentionally incorrect password.*
 
-<img src="./Pasted image 20260722155448.png">
+<img src="./assets/Pasted image 20260722155448.png">
 
 *Figure 54 — Security Event ID 4624 after successful local authentication.*
 
-<img src="./Pasted image 20260722155933.png">
+<img src="./assets/Pasted image 20260722155933.png">
 
 *Figure 55 — Creation of a temporary local group and addition of `WIN10\LabAdmin` for an audit test.*
 
-<img src="./Pasted image 20260722160145.png">
+<img src="./assets/Pasted image 20260722160145.png">
 
 *Figure 56 — Security Event ID 4731 for the creation of a local security group.*
 
-<img src="./Pasted image 20260722160216.png">
+<img src="./assets/Pasted image 20260722160216.png">
 
 *Figure 57 — Security Event ID 4732 for adding a member to a local group.*
 
@@ -442,16 +442,16 @@ Get-Content "C:\Windows\System32\LogFiles\Firewall\pfirewall.log" -Tail 30
 
 `-Tail 30` outputs only the last 30 lines.
 
-<img src="./Pasted image 20260722160602.png">
+<img src="./assets/Pasted image 20260722160602.png">
 
 *Figure 58 — Windows Firewall log settings: dropped packets, successful connections, and file size.*
 
-<img src="./Pasted image 20260722161008.png">
+<img src="./assets/Pasted image 20260722161008.png">
 
 *Figure 59 — Verification of the WIN10 network profile; in the screenshot, the active profile is identified as `Public`.*
 
 
-<img src="./Pasted image 20260722161725.png">
+<img src="./assets/Pasted image 20260722161725.png">
 
 *Figure 60 — Contents of `pfirewall.log` read from PowerShell.*
 
@@ -465,39 +465,39 @@ A separate GPO, `SOC-LAB-DC-Audit`, linked to the Domain Controllers OU, was cre
 
 Events 4662 and 5136 occur only when, in addition to the audit policy, a SACL is configured on the corresponding AD object. Therefore, the SACL for `svc_backup` was created separately during scenario preparation.
 
-<img src="./Pasted image 20260722175223.png">
+<img src="./assets/Pasted image 20260722175223.png">
 
 *Figure 61 — Creation and linking of the `SOC-LAB-DC-Audit` GPO to the Domain Controllers OU.*
 
-<img src="./Pasted image 20260722181045.png">
+<img src="./assets/Pasted image 20260722181045.png">
 
 *Figure 62 — Audit Kerberos Authentication Service policy on DC01.*
 
-<img src="./Pasted image 20260722181315.png">
+<img src="./assets/Pasted image 20260722181315.png">
 
 *Figure 63 — Audit Kerberos Service Ticket Operations policy on DC01.*
 
-<img src="./Pasted image 20260722181451.png">
+<img src="./assets/Pasted image 20260722181451.png">
 
 *Figure 64 — Audit Directory Service Changes policy on DC01.*
 
-<img src="./Pasted image 20260722181636.png">
+<img src="./assets/Pasted image 20260722181636.png">
 
 *Figure 65 — Audit Directory Service Access policy on DC01.*
 
-<img src="./Pasted image 20260722181758.png">
+<img src="./assets/Pasted image 20260722181758.png">
 
 *Figure 66 — Audit User Account Management policy on DC01.*
 
-<img src="./Pasted image 20260722181910.png">
+<img src="./assets/Pasted image 20260722181910.png">
 
 *Figure 67 — Audit Security Group Management policy on DC01.*
 
-<img src="./Pasted image 20260722182059.png">
+<img src="./assets/Pasted image 20260722182059.png">
 
 *Figure 68 — Application of the domain policy with the `gpupdate /force` command.*
 
-<img src="./Pasted image 20260722182418.png">
+<img src="./assets/Pasted image 20260722182418.png">
 
 *Figure 69 — Result of `auditpol.exe /get /category:*` after applying the GPO.*
 
@@ -517,23 +517,23 @@ The following were created in `OU/SOC-LAB`:
 
 A weak laboratory password and `Password never expires` were used for `svc_backup`. The account was not added to Domain Admins.
 
-<img src="./Pasted image 20260722191846.png">
+<img src="./assets/Pasted image 20260722191846.png">
 
 *Figure 70 — The `SOC-LAB` OU created for laboratory objects.*
 
-<img src="./Pasted image 20260722191942.png">
+<img src="./assets/Pasted image 20260722191942.png">
 
 *Figure 71 — Created `IT-Support` domain security group.*
 
-<img src="./Pasted image 20260722192735.png">
+<img src="./assets/Pasted image 20260722192735.png">
 
 *Figure 72 — Created `lab.user` domain user.*
 
-<img src="./Pasted image 20260722193055.png">
+<img src="./assets/Pasted image 20260722193055.png">
 
 *Figure 73 — Created `svc_backup` service account.*
 
-<img src="./Pasted image 20260722193521.png">
+<img src="./assets/Pasted image 20260722193521.png">
 
 *Figure 74 — Adding `lab.user` to the `IT-Support` group.*
 
@@ -542,11 +542,11 @@ A weak laboratory password and `Password never expires` were used for `svc_backu
 
 A SACL was added to `svc_backup` to log writes to the `servicePrincipalName` attribute. Through a separate DACL operation, the `IT-Support` group was granted the right to write this attribute. The SACL determines **what to log**; the DACL determines **who has the right to perform the operation**.
 
-<img src="./Pasted image 20260722194530.png">
+<img src="./assets/Pasted image 20260722194530.png">
 
 *Figure 75 — SACL on `svc_backup` for auditing changes to the `servicePrincipalName` attribute.*
 
-<img src="./Pasted image 20260722195816.png">
+<img src="./assets/Pasted image 20260722195816.png">
 
 *Figure 76 — Delegating to the `IT-Support` group the right to write `servicePrincipalName` on the `svc_backup` object.*
 
@@ -573,23 +573,23 @@ On a Windows client, the behavior of the Windows Firewall rule depends on the ne
 After that, the Windows Firewall rule was restricted to `10.125.10.10`. 
 `Test-WSMan localhost` confirmed a WS-Management response. The standard HTTP port for WinRM is TCP 5985.
 
-<img src="./Pasted image 20260722200942.png">
+<img src="./assets/Pasted image 20260722200942.png">
 
 *Figure 77 — Adding `CORP\IT-Support` to the local Remote Management Users group on WIN10.*
 
-<img src="./Pasted image 20260722201327.png">
+<img src="./assets/Pasted image 20260722201327.png">
 
 *Figure 78 — Enabling PowerShell Remoting with the `Enable-PSRemoting -Force` command.*
 
-<img src="./Pasted image 20260723150418.png">
+<img src="./assets/Pasted image 20260723150418.png">
 
 *Figure 79 — Granting the `IT-Support` group Full Control (All Operations) on the `Microsoft.PowerShell` endpoint.*
 
-<img src="./Pasted image 20260723151209.png">
+<img src="./assets/Pasted image 20260723151209.png">
 
 *Figure 80 — Restricting the WinRM rule in Windows Firewall to the Kali address `10.125.10.10`.*
 
-<img src="./Pasted image 20260723151346.png">
+<img src="./assets/Pasted image 20260723151346.png">
 
 *Figure 81 — Successful local WinRM verification with the `Test-WSMan localhost` command.*
 
@@ -616,38 +616,38 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\ProgramData\CorpBack
 `-ExecutionPolicy Bypass` applies only to this process and does not change the global policy;
 `-File` specifies the script.
 
-<img src="./Pasted image 20260723151540.png">
+<img src="./assets/Pasted image 20260723151540.png">
 
 *Figure 82 — Creation of the `C:\ProgramData\CorpBackup` directory.*
 
-<img src="./Pasted image 20260723152019.png">
+<img src="./assets/Pasted image 20260723152019.png">
 
 *Figure 83 — Initial safe contents of `backup.ps1`.*
 
-<img src="./Pasted image 20260723152352.png">
+<img src="./assets/Pasted image 20260723152352.png">
 
 *Figure 84 — Manual test run of `backup.ps1` through `powershell.exe`.*
 
-<img src="./Pasted image 20260723160324.png">
+<img src="./assets/Pasted image 20260723160324.png">
 
 *Figure 85 — Confirmation that, without `-ExecutionPolicy Bypass`, the local policy blocked the test run.*
 
 
 A `\Corp Backup Task` was created in Task Scheduler. It repeats every five minutes, runs as `NT AUTHORITY\SYSTEM` with the highest privileges, and launches the same `backup.ps1`.
 
-<img src="./Pasted image 20260723160938.png">
+<img src="./assets/Pasted image 20260723160938.png">
 
 *Figure 86 — General tab of `\Corp Backup Task`: running as `NT AUTHORITY\SYSTEM` with the highest privileges.*
 
-<img src="./Pasted image 20260723161031.png">
+<img src="./assets/Pasted image 20260723161031.png">
 
 *Figure 87 — `\Corp Backup Task` trigger: execution repeats every five minutes.*
 
-<img src="./Pasted image 20260723161101.png">
+<img src="./assets/Pasted image 20260723161101.png">
 
 *Figure 88 — Task action: launching `powershell.exe` with arguments to execute `backup.ps1`.*
 
-<img src="./Pasted image 20260723161352.png">
+<img src="./assets/Pasted image 20260723161352.png">
 
 *Figure 89 — New entry in `backup.log` after a control run of the Scheduled Task.*
 
@@ -667,11 +667,11 @@ a low-privileged group can modify the file
 = execution of controlled code with local SYSTEM privileges
 ```
 
-<img src="./Pasted image 20260723161546.png">
+<img src="./assets/Pasted image 20260723161546.png">
 
 *Figure 90 — Granting the `CORP\IT-Support` group the `Modify` permission on `backup.ps1`.*
 
-<img src="./Pasted image 20260723161642.png">
+<img src="./assets/Pasted image 20260723161642.png">
 
 *Figure 91 — Verification of the file ACL: the `CORP\IT-Support:(M)` ACE is present.*
 
@@ -687,11 +687,11 @@ sudo apt install -y netexec evil-winrm bloodhound-ce-python impacket-scripts blo
 
 `-y` automatically confirms package installation.
 
-<img src="./Pasted image 20260723163427.png">
+<img src="./assets/Pasted image 20260723163427.png">
 
 *Figure 92 — Static IP configuration of Kali Linux: `10.125.10.10/24`, gateway `10.125.10.1`, DNS `10.125.10.30`.*
 
-<img src="./Screenshot_2026-07-24_22_51_32.png">
+<img src="./assets/Screenshot_2026-07-24_22_51_32.png">
 
 *Figure 93 — BloodHound CE visualizes the path `lab.user → IT-Support → GenericWrite/WriteSPN → svc_backup`.*
 
@@ -714,19 +714,19 @@ In Nmap, `-Pn` skips the host discovery stage and assumes the host is active;
 `-p` restricts scanning to specific ports. 
 DNS 53, Kerberos 88, LDAP 389, and SMB 445 were checked on DC01, and WinRM HTTP 5985 was checked on WIN10.
 
-<img src="./Pasted image 20260724141159.png">
+<img src="./assets/Pasted image 20260724141159.png">
 
 *Figure 94 — Creation of the attack working directory and recording of the start time.*
 
-<img src="./Pasted image 20260724141753.png">
+<img src="./assets/Pasted image 20260724141753.png">
 
 *Figure 95 — Verification of the network reachability of WIN10 and DC01 from Kali.*
 
-<img src="./Pasted image 20260724142211.png">
+<img src="./assets/Pasted image 20260724142211.png">
 
 *Figure 96 — Nmap scanning of DNS, Kerberos, LDAP, and SMB on DC01.*
 
-<img src="./Pasted image 20260724142341.png">
+<img src="./assets/Pasted image 20260724142341.png">
 
 *Figure 97 — Nmap confirms the open WinRM HTTP port 5985 on WIN10.*
 
@@ -742,11 +742,11 @@ nxc winrm 10.125.10.20 -d corp.test -u lab.user -p lab_passwords.txt
 
 `printf '%s\n'` writes each value on a separate line; `>` overwrites the file. In NetExec: `winrm` selects the protocol, `-d` is the domain, `-u` is the user, and `-p` is the password or a file containing a list. The result contained one failed and one successful attempt.
 
-<img src="./Pasted image 20260724142921.png">
+<img src="./assets/Pasted image 20260724142921.png">
 
 *Figure 98 — Creation of a controlled two-line password wordlist for NetExec.*
 
-<img src="./Pasted image 20260724143133.png">
+<img src="./assets/Pasted image 20260724143133.png">
 
 *Figure 99 — NetExec records one failed and one successful WinRM authentication for `lab.user`.*
 
@@ -768,15 +768,15 @@ net localgroup Administrators
 
 The result confirmed `WIN10`, the user `corp\lab.user`, membership in `CORP\IT-Support`, and the absence of `lab.user` from the local Administrators group. Therefore, the initial access was not administrative.
 
-<img src="./Pasted image 20260724143809.png">
+<img src="./assets/Pasted image 20260724143809.png">
 
 *Figure 100 — Successful interactive Evil-WinRM session on WIN10.*
 
-<img src="./Pasted image 20260724144117.png">
+<img src="./assets/Pasted image 20260724144117.png">
 
 *Figure 101 — Verification of the identity, groups, and privileges of `CORP\lab.user` in the initial session.*
 
-<img src="./Pasted image 20260724144355.png">
+<img src="./assets/Pasted image 20260724144355.png">
 
 *Figure 102 — Before exploitation, `CORP\lab.user` is absent from the local Administrators group.*
 
@@ -792,11 +792,11 @@ icacls "C:\ProgramData\CorpBackup\backup.ps1"
 `icacls` without modifying switches displays the DACL. 
 `CORP\IT-Support:(M)` was discovered, and `lab.user` is a member of this group.
 
-<img src="./Pasted image 20260724144843.png">
+<img src="./assets/Pasted image 20260724144843.png">
 
 *Figure 103 — Initial contents of `C:\ProgramData\CorpBackup\backup.ps1` read through WinRM.*
 
-<img src="./Pasted image 20260724144913.png">
+<img src="./assets/Pasted image 20260724144913.png">
 
 *Figure 104 — The `backup.ps1` ACL shows the `Modify` right for the `CORP\IT-Support` group.*
 
@@ -820,7 +820,7 @@ the actual command and successful ZIP creation are confirmed by the screenshot.
 `--zip` archives the results. 
 The collector found the domain, two computers, users, groups, GPOs, and ACL relationships.
 
-<img src="./Pasted image 20260724145947.png">
+<img src="./assets/Pasted image 20260724145947.png">
 
 *Figure 105 — Collection of BloodHound CE data into a ZIP.
 
@@ -848,11 +848,11 @@ Set-Content -Path "C:\ProgramData\CorpBackup\backup.ps1" -Value `
 `net localgroup ... /add` adds the user to the local group.
 `2>&1` combines stderr with stdout, and `Out-File` saves the result.
 
-<img src="./Pasted image 20260724152253.png">
+<img src="./assets/Pasted image 20260724152253.png">
 
 *Figure 106 — Creation of a backup copy of the initial `backup.ps1` in the `lab.user` profile.*
 
-<img src="./Pasted image 20260724152237.png">
+<img src="./assets/Pasted image 20260724152237.png">
 
 *Figure 107 — Overwriting `backup.ps1` with payload commands to record the SYSTEM context and add the user to Administrators.*
 
@@ -871,15 +871,15 @@ net localgroup Administrators
 `Test-Path` returned `True`; 
 `execution-context.txt` contained `nt authority\system`; `privesc-result.txt` and the group membership, in turn, confirm the successful addition of `CORP\lab.user`.
 
-<img src="./Pasted image 20260724154910.png">
+<img src="./assets/Pasted image 20260724154910.png">
 
 *Figure 108 — `Test-Path` confirms the creation of `execution-context.txt` after starting the Scheduled Task.*
 
-<img src="./Pasted image 20260724154554.png" width="697">
+<img src="./assets/Pasted image 20260724154554.png" width="697">
 
 *Figure 109 — The `execution-context.txt` file contains `nt authority\system`.*
 
-<img src="./Pasted image 20260724155134.png">
+<img src="./assets/Pasted image 20260724155134.png">
 
 *Figure 110 — `privesc-result.txt` and the Administrators list confirm the addition of `CORP\lab.user`.*
 
@@ -888,7 +888,7 @@ net localgroup Administrators
 
 Group membership changed after the initial WinRM session was created. Because the access token is formed during logon, the session was terminated and a new one was created. In the new session, the `net session` command executed without `System error 5`, which confirmed the administrative context. An additional suitable verification is `fltmc`, which returns `Access is denied` for a regular user.
 
-<img src="./Pasted image 20260724155641.png">
+<img src="./assets/Pasted image 20260724155641.png">
 
 *Figure 111 — A new Evil-WinRM session after the group membership change executes the administrative `net session` command.*
 
@@ -899,28 +899,28 @@ Group membership changed after the initial WinRM session was created. Because th
 
 The failed NetExec verification generated Event ID 4625 with Logon Type 3 and Source Network Address `10.125.10.10`. The successful WinRM logon generated Event ID 4624 with the same source and user `CORP\lab.user`. Event 4732 is the strongest evidence of escalation: Subject — `SYSTEM`, Member — `CORP\lab.user`, Group — `BUILTIN\Administrators`.
 
-<img src="./Pasted image 20260724175755.png">
+<img src="./assets/Pasted image 20260724175755.png">
 
 *Figure 112 — Security Event ID 4625: failed network logon, Logon Type 3, from source `10.125.10.10`.*
 
-<img src="./Pasted image 20260724180112.png">
+<img src="./assets/Pasted image 20260724180112.png">
 
 *Figure 113 — Security Event ID 4624: successful network logon, Logon Type 3, by `CORP\lab.user` from Kali.*
 
-<img src="./Pasted image 20260724180950.png">
+<img src="./assets/Pasted image 20260724180950.png">
 
 *Figure 114 — Security Event ID 4732: SYSTEM added `CORP\lab.user` to `BUILTIN\Administrators`.*
 
 
 After adding `CORP\lab.user` to the local Administrators group, a new WinRM session was created. Security Event ID 4624 at `15:53:45` shows a successful network logon by `CORP\lab.user` from Kali: `Logon Type 3`, `Elevated Token: Yes`, Source Network Address `10.125.10.10`, and Logon ID `0x9F6B3D`.
 
-<img src="./Security_4624_PostEscalation_Logon.png">
+<img src="./assets/Security_4624_PostEscalation_Logon.png">
 
 *Figure 115 — Security Event ID 4624: repeated network logon by `CORP\lab.user` after privilege escalation. The event contains `Logon Type 3`, `Elevated Token: Yes`, the Kali address `10.125.10.10`, and Logon ID `0x9F6B3D`.*
 
 Event 4672, recorded in the same second, has the same Logon ID `0x9F6B3D` and a list of sensitive privileges, including `SeDebugPrivilege`, `SeBackupPrivilege`, `SeRestorePrivilege`, `SeTakeOwnershipPrivilege`, and `SeImpersonatePrivilege`. It is not independent evidence of a group membership change, but in correlation with 4624, it confirms that the new `CORP\lab.user` session was assigned a privileged token.
 
-<img src="./Security_4672_PostEscalation_Privileges.png">
+<img src="./assets/Security_4672_PostEscalation_Privileges.png">
 
 *Figure 116 — Security Event ID 4672: assignment of special privileges to the new `CORP\lab.user` session. The identical Logon ID `0x9F6B3D` directly links the event to the repeated 4624 logon.*
 
@@ -931,39 +931,39 @@ Event 4672, recorded in the same second, has the same Logon ID `0x9F6B3D` and a 
 
 During the attack time interval, the processes `wsmprovhost.exe`, `powershell.exe`, `whoami.exe`, `icacls.exe`, `net.exe`, and `net1.exe` were found. The chain is consistent with a remote PowerShell session, ACL verification, script modification, and subsequent payload execution as `NT AUTHORITY\SYSTEM`. Particularly important are the `net localgroup Administrators ... /add` command line, creation of the `backup-original.ps1` backup copy, the Event ID 3 network connection, and Sysmon file events.
 
-<img src="./Pasted image 20260724182529.png">
+<img src="./assets/Pasted image 20260724182529.png">
 
 *Figure 117 — Sysmon Event ID 1 for a PowerShell process in the attack chain.*
 
-<img src="./Pasted image 20260724182705.png">
+<img src="./assets/Pasted image 20260724182705.png">
 
 *Figure 118 — Sysmon Event ID 1 for `wsmprovhost.exe`, which serviced the remote PowerShell session.*
 
-<img src="./Pasted image 20260724182804.png">
+<img src="./assets/Pasted image 20260724182804.png">
 
 *Figure 119 — Sysmon Event ID 1 for `whoami.exe`.*
 
-<img src="./Pasted image 20260724183037.png">
+<img src="./assets/Pasted image 20260724183037.png">
 
 *Figure 120 — Sysmon Event ID 1 for `net.exe`.*
 
-<img src="./Pasted image 20260724183113.png">
+<img src="./assets/Pasted image 20260724183113.png">
 
 *Figure 121 — Sysmon Event ID 1 for `net1.exe`.*
 
-<img src="./Pasted image 20260724183224.png">
+<img src="./assets/Pasted image 20260724183224.png">
 
 *Figure 122 — Sysmon Event ID 1 for `icacls.exe`.*
 
-<img src="./Pasted image 20260724183430.png">
+<img src="./assets/Pasted image 20260724183430.png">
 
 *Figure 123 — Details of the Sysmon event for `net.exe` with the command line that modified the local group.*
 
-<img src="./Pasted image 20260724184157.png">
+<img src="./assets/Pasted image 20260724184157.png">
 
 *Figure 124 — Sysmon Event ID 3 for the network connection associated with the WinRM session.*
 
-<img src="./Pasted image 20260724185625.png">
+<img src="./assets/Pasted image 20260724185625.png">
 
 *Figure 125 — Sysmon Event ID 11 for the creation of a file-system artifact.*
 
@@ -974,33 +974,33 @@ For additional visualization, the `Microsoft-Windows-Sysmon/Operational` log was
 
 The File Created event recorded that the `wsmprovhost.exe` process in the remote session created the file `C:\Users\lab.user\Documents\backup-original.ps1` at `13:21:49 UTC`, that is, at `15:21:49 CEST`. This directly corresponds to the `Copy-Item` command executed before modifying the privileged script.
 
-<img src="./SysmonView_FileCreate_backup-original.png">
+<img src="./assets/SysmonView_FileCreate_backup-original.png">
 
 *Figure 126 — Sysmon View: `wsmprovhost.exe` creates the `backup-original.ps1` backup copy in the `lab.user` profile (`13:21:49 UTC` / `15:21:49 CEST`).*
 
 Process View for the initial WinRM session shows `wsmprovhost.exe` as the parent process for `whoami.exe`, `net.exe`, `net1.exe`, and `icacls.exe`. The time `12:40:15–12:48:03 UTC` corresponds to `14:40:15–14:48:03 CEST` and matches the stages of verifying the user, the local Administrators group, and the permissions on `backup.ps1`.
 
-<img src="./SysmonView_Initial_WinRM_Process_Tree.png">
+<img src="./assets/SysmonView_Initial_WinRM_Process_Tree.png">
 
 *Figure 127 — Sysmon View Process View: the initial WinRM session spawns the reconnaissance processes `whoami.exe`, `net.exe`/`net1.exe`, and `icacls.exe`.*
 
 The strongest process evidence of privilege escalation is the separate chain `powershell.exe → whoami.exe` and `powershell.exe → net.exe → net1.exe`. It was recorded at `13:43:26–13:43:29 UTC`, that is, at `15:43:26–15:43:29 CEST`. The details for `net.exe` and `net1.exe` show the user `NT AUTHORITY\SYSTEM`, the `System` integrity level, and the command line adding `CORP\lab.user` to the local Administrators group.
 
-<img src="./SysmonView_SYSTEM_PowerShell_Process_Tree.png">
+<img src="./assets/SysmonView_SYSTEM_PowerShell_Process_Tree.png">
 
 *Figure 128 — Sysmon View Process View: PowerShell in the SYSTEM context launches `whoami.exe`, `net.exe`, and `net1.exe` during payload execution.*
 
-<img src="./SysmonView_net.exe_SYSTEM_details.png">
+<img src="./assets/SysmonView_net.exe_SYSTEM_details.png">
 
 *Figure 129 — Sysmon View: `net.exe`, running as `NT AUTHORITY\SYSTEM`, executes `localgroup Administrators CORP\lab.user /add` with the `System` integrity level.*
 
-<img src="./SysmonView_net1.exe_SYSTEM_details.png">
+<img src="./assets/SysmonView_net1.exe_SYSTEM_details.png">
 
 *Figure 130 — Sysmon View: the child `net1.exe` repeats the local group modification operation in the same SYSTEM context.*
 
 After the membership change, a new WinRM session was created. The tree with `wsmprovhost.exe` and child processes `whoami.exe`, `net.exe`/`net1.exe`, and `fltmc.exe` was recorded at `13:53:45–13:54:48 UTC`, that is, at `15:53:45–15:54:48 CEST`. `fltmc.exe` itself is a useful control command because its successful execution requires elevated privileges. This tree should be correlated with the new `CORP\lab.user` logon and the result of `net session`, because Process View alone does not show all user token fields.
 
-<img src="./SysmonView_PostEscalation_WinRM_Process_Tree.png">
+<img src="./assets/SysmonView_PostEscalation_WinRM_Process_Tree.png">
 
 *Figure 131 — Sysmon View Process View: the new WinRM session after escalation spawns `whoami.exe`, `net.exe`/`net1.exe`, and `fltmc.exe` to verify administrative access.*
 
@@ -1011,25 +1011,25 @@ The `Microsoft-Windows-TaskScheduler/Operational` log contains the complete exec
 
 Event ID 110 confirms that, because the periodic trigger did not execute, the task was initiated manually.
 
-<img src="./TaskScheduler_110_Manual_Trigger.png">
+<img src="./assets/TaskScheduler_110_Manual_Trigger.png">
 
 *Figure 132 — Task Scheduler Event ID 110: manual initiation of `\Corp Backup Task` at the time of the main attack scenario.*
 
 Event ID 100 shows the task instance starting as `NT AUTHORITY\SYSTEM`, thereby confirming the privileged context in which the modified `backup.ps1` was read.
 
-<img src="./TaskScheduler_100_SYSTEM_Task_Started.png">
+<img src="./assets/TaskScheduler_100_SYSTEM_Task_Started.png">
 
 *Figure 133 — Task Scheduler Event ID 100: start of `\Corp Backup Task` as `NT AUTHORITY\SYSTEM`.*
 
 Event ID 129 links the task to the `powershell.exe` process and PID `5668`. This is a direct bridge between the Scheduled Task configuration and the SYSTEM process chain shown in Sysmon View.
 
-<img src="./TaskScheduler_129_PowerShell_PID5668.png">
+<img src="./assets/TaskScheduler_129_PowerShell_PID5668.png">
 
 *Figure 134 — Task Scheduler Event ID 129: creation of the `powershell.exe` process with PID 5668 to execute `\Corp Backup Task`.*
 
 Event ID 201 shows that the `powershell.exe` action completed with return code `0`. By itself, this code does not prove the result of every command inside the scenario, but in combination with Sysmon Event ID 1 and Security Event ID 4732, it confirms the successful completion of the privileged stage.
 
-<img src="./TaskScheduler_201_Action_Completed_Code0.png">
+<img src="./assets/TaskScheduler_201_Action_Completed_Code0.png">
 
 *Figure 135 — Task Scheduler Event ID 201: the `powershell.exe` action within `\Corp Backup Task` completed with return code 0.*
 
@@ -1040,11 +1040,11 @@ Events 200 (`Action started`) and 102 (`Task completed`) were also present in th
 
 Event ID 4104 contains the text of the PowerShell code block, which makes it possible to recover the actual PowerShell commands. The Windows Firewall log confirms network activity between `10.125.10.10` and WIN10, but by itself does not prove successful authentication; this requires correlation with 4624/4625 and WinRM/Sysmon.
 
-<img src="./Pasted image 20260724190435.png">
+<img src="./assets/Pasted image 20260724190435.png">
 
 *Figure 136 — PowerShell Event ID 4104 with the text of the executed script block.*
 
-<img src="./Pasted image 20260724192123.png">
+<img src="./assets/Pasted image 20260724192123.png">
 
 *Figure 137 — Windows Firewall entries associated with traffic between Kali and WIN10.*
 
@@ -1080,15 +1080,15 @@ bloodyAD -H dc01.corp.test -i 10.125.10.30 \
 `--attr` limits the output to one attribute. 
 Initially, the SPN was empty.
 
-<img src="./Pasted image 20260724204732.png">
+<img src="./assets/Pasted image 20260724204732.png">
 
 *Figure 138 — Creation of the `SOC-LAB-AD-Attack` directory and recording the start time of the AD stage.*
 
-<img src="./Pasted image 20260724204912.png">
+<img src="./assets/Pasted image 20260724204912.png">
 
 *Figure 139 — Verification of DNS/DC and initial query of the `servicePrincipalName` attribute through bloodyAD.*
 
-<img src="./Pasted image 20260724205259.png">
+<img src="./assets/Pasted image 20260724205259.png">
 
 *Figure 140 — Initial state of `svc_backup`: the `servicePrincipalName` attribute is empty.*
 
@@ -1114,11 +1114,11 @@ bloodyAD -H dc01.corp.test -i 10.125.10.30 \
   get object svc_backup --attr servicePrincipalName | tee 02-spn-after.txt
 ```
 
-<img src="./Pasted image 20260724205531.png">
+<img src="./assets/Pasted image 20260724205531.png">
 
 *Figure 141 — Successful setting of the synthetic SPN `HTTP/backup.corp.test` on `svc_backup`.*
 
-<img src="./Pasted image 20260724205650.png">
+<img src="./assets/Pasted image 20260724205650.png">
 
 *Figure 142 — The repeated LDAP query confirms the new SPN value.*
 
@@ -1141,15 +1141,15 @@ impacket-GetUserSPNs "corp.test/lab.user:$LABPASS" \
 
 The resulting file is not a “password” or a regular NTLM hash. It is a representation of part of the TGS encrypted with a key derived from the account password, which makes it possible to test candidates offline without new requests to the DC.
 
-<img src="./Pasted image 20260724210604.png">
+<img src="./assets/Pasted image 20260724210604.png">
 
 *Figure 143 — Impacket `GetUserSPNs` requests a TGS for `svc_backup` and writes the result to a file.*
 
-<img src="./Pasted image 20260724210643.png">
+<img src="./assets/Pasted image 20260724210643.png">
 
 *Figure 144 — The `svc_backup_tgs.hash` file was created and is not empty.*
 
-<img src="./Pasted image 20260724210815.png">
+<img src="./assets/Pasted image 20260724210815.png">
 
 *Figure 145 — Beginning of the Kerberos material in `$krb5tgs$23$` format.*
 
@@ -1176,15 +1176,15 @@ nxc ldap 10.125.10.30 -d corp.test -u svc_backup -p "$SVCPASS"
 
 The `ldap` module verified domain authentication on DC01. Success confirms that the recovered password is correct, but does not mean that `svc_backup` has administrative privileges.
 
-<img src="./Pasted image 20260724211037.png">
+<img src="./assets/Pasted image 20260724211037.png">
 
 *Figure 146 — Small laboratory candidate wordlist for offline verification.*
 
-<img src="./Pasted image 20260724212651.png">
+<img src="./assets/Pasted image 20260724212651.png">
 
 *Figure 147 — John the Ripper recovers the weak `svc_backup` password from the TGS material.*
 
-<img src="./Pasted image 20260724212945.png">
+<img src="./assets/Pasted image 20260724212945.png">
 
 *Figure 148 — NetExec confirms the validity of the recovered `svc_backup` credentials through LDAP.*
 
@@ -1198,19 +1198,19 @@ The `ldap` module verified domain authentication on DC01. Success confirms that 
 
 4769 is a normal Kerberos event and by itself does not prove Kerberoasting. Suspicion arises when it is correlated with a recent atypical SPN addition, the `lab.user` account, the Kali source address, the target account `svc_backup`, and etype 23.
 
-<img src="./Pasted image 20260724215612.png">
+<img src="./assets/Pasted image 20260724215612.png">
 
 *Figure 149 — DC01 Security Event ID 5136: the `servicePrincipalName` attribute of the `svc_backup` object was modified.*
 
-<img src="./Pasted image 20260724215854.png">
+<img src="./assets/Pasted image 20260724215854.png">
 
 *Figure 150 — DC01 Security Event ID 4662: an operation was performed on an Active Directory object.*
 
-<img src="./Pasted image 20260724220005.png">
+<img src="./assets/Pasted image 20260724220005.png">
 
 *Figure 151 — DC01 Security Event ID 4768: TGT request associated with authentication during the AD stage.*
 
-<img src="./Pasted image 20260724220406.png">
+<img src="./assets/Pasted image 20260724220406.png">
 
 *Figure 152 — DC01 Security Event ID 4769: Kerberos service ticket request for the added SPN.*
 
@@ -1437,7 +1437,7 @@ During the investigation, the computer was connected to a wireless local network
 | DNS TTL of A records | `300` seconds                  |
 | HTTPS server port | TCP `443`                      |
 
-<img src="./Pasted image 20260725194632.png" width="605">
+<img src="./assets/Pasted image 20260725194632.png" width="605">
 
 *Figure 1 — Fragment of `ipconfig /all` with the client IPv4 address, mask, gateway, and DNS and DHCP servers.*
 
@@ -1625,7 +1625,7 @@ Before the capture, I cleared the DNS cache so that the system would not use an 
 ipconfig /flushdns
 ```
 
-<img src="./Pasted image 20260725191049.png" width="429">
+<img src="./assets/Pasted image 20260725191049.png" width="429">
 
 *Figure 2 — Successful clearing of the local DNS cache before reopening the site.*
 
@@ -1635,7 +1635,7 @@ The command removes previously saved DNS results from the client cache. After th
 
 The computer `192.168.0.150` sent a type `A` query for the name `rnb-team.com` to the DNS server `192.168.0.1`.
 
-<img src="./Pasted image 20260725194601.png" width="1000">
+<img src="./assets/Pasted image 20260725194601.png" width="1000">
 
 *Figure 3 — Type A DNS Query for `rnb-team.com`, sent by client `192.168.0.150` to the local DNS resolver `192.168.0.1`.*
 
@@ -1659,7 +1659,7 @@ rnb-team.com → 104.21.89.4
 rnb-team.com → 172.67.155.54
 ```
 
-<img src="./Pasted image 20260725195839.png" width="1000">
+<img src="./assets/Pasted image 20260725195839.png" width="1000">
 
 *Figure 4 — DNS Response for `rnb-team.com` with two A records and a TTL of 300 seconds.*
 
@@ -1697,7 +1697,7 @@ The address `192.168.0.150` is private. NAT is normally performed on the home ro
 
 Initially, the browser used QUIC, which operates over UDP and is used by HTTP/3. In this mode, there is no classic TCP three-way handshake. To complete the assignment, I temporarily disabled QUIC in Chromium.
 
-<img src="./Pasted image 20260725210551.png" width="900">
+<img src="./assets/Pasted image 20260725210551.png" width="900">
 
 *Figure 5 — Temporary disabling of Experimental QUIC protocol to obtain an HTTPS connection over TCP.*
 
@@ -1715,7 +1715,7 @@ Port `50650` is a temporary client port. Port `443` is the standard HTTPS server
 
 The client sends `SYN`, proposing to create a TCP connection.
 
-<img src="./Pasted image 20260725210626.png" width="1000">
+<img src="./assets/Pasted image 20260725210626.png" width="1000">
 
 *Figure 6 — First packet of the TCP three-way handshake: SYN from `192.168.0.150:50650` to `172.67.155.54:443`.*
 
@@ -1735,7 +1735,7 @@ Main fields:
 
 The server responds with `SYN, ACK`: it agrees to create the connection and acknowledges the client's SYN.
 
-<img src="./Pasted image 20260725210659.png" width="1000">
+<img src="./assets/Pasted image 20260725210659.png" width="1000">
 
 *Figure 7 — Second packet of the TCP three-way handshake: SYN/ACK from `172.67.155.54:443` to client port `50650`.*
 
@@ -1753,7 +1753,7 @@ Main fields:
 
 The client acknowledges the server's SYN with an `ACK` packet.
 
-<img src="./Pasted image 20260725210759.png" width="1000">
+<img src="./assets/Pasted image 20260725210759.png" width="1000">
 
 *Figure 8 — Third packet of the TCP three-way handshake: the client's ACK, after which the TCP connection is considered established.*
 
@@ -1777,7 +1777,7 @@ Complete handshake result:
 
 Immediately after the TCP connection was established, the client began the TLS handshake with a `Client Hello` message.
 
-<img src="./Pasted image 20260725210833.png" width="1000">
+<img src="./assets/Pasted image 20260725210833.png" width="1000">
 
 *Figure 9 — TLS Client Hello in the same TCP stream after completion of SYN → SYN/ACK → ACK.*
 
@@ -1797,7 +1797,7 @@ TCP stream: 188
 
 ### 8.1. Client Hello
 
-<img src="./Pasted image 20260725213322.png" width="1000">
+<img src="./assets/Pasted image 20260725213322.png" width="1000">
 
 *Figure 10 — TLS Client Hello: the client proposes supported versions, cipher suites, and extensions.*
 
@@ -1816,7 +1816,7 @@ The `Version` field inside Client Hello shows TLS 1.2, but this is a **legacy fi
 
 ### 8.2. Client Hello Extensions and ECH
 
-<img src="./Pasted image 20260725213410.png" width="1000">
+<img src="./assets/Pasted image 20260725213410.png" width="1000">
 
 *Figure 11 — TLS Client Hello extensions: external SNI `cloudflare-ech.com`, supported groups, key share, and signature algorithms.*
 
@@ -1846,7 +1846,7 @@ Other important fields:
 
 ### 8.3. Server Hello
 
-<img src="./Pasted image 20260725213618.png" width="1000">
+<img src="./assets/Pasted image 20260725213618.png" width="1000">
 
 *Figure 12 — TLS Server Hello: the server selected TLS 1.3, cipher suite `TLS_AES_128_GCM_SHA256`, and key share parameters.*
 
@@ -1868,7 +1868,7 @@ Packet No. 29583 contains TLS Client Hello and simultaneously shows headers from
 
 ### 9.1. Frame, Ethernet, and IPv4
 
-<img src="./Pasted image 20260725213856.png" width="1000">
+<img src="./assets/Pasted image 20260725213856.png" width="1000">
 
 *Figure 13 — Upper part of the Client Hello packet: Frame → Ethernet II → IPv4.*
 
@@ -1889,7 +1889,7 @@ IP TTL decreases at each router. If it reaches zero, the packet is discarded, wh
 
 ### 9.2. TCP Header and Segmentation
 
-<img src="./Pasted image 20260725213929.png" width="1000">
+<img src="./assets/Pasted image 20260725213929.png" width="1000">
 
 *Figure 14 — TCP header of the segment carrying part of the TLS Client Hello.*
 
@@ -1909,7 +1909,7 @@ The `Checksum Status: Unverified` indication in a local capture does not necessa
 
 ### 9.3. TLS Inside TCP
 
-<img src="./Pasted image 20260725214000.png" width="1000">
+<img src="./assets/Pasted image 20260725214000.png" width="1000">
 
 *Figure 15 — TLS Client Hello after reassembly of the TCP segments.*
 
@@ -1941,7 +1941,7 @@ A SYN from another connection was used for additional analysis:
 TCP stream 188
 ```
 
-<img src="./Pasted image 20260725215323.png" width="1000">
+<img src="./assets/Pasted image 20260725215323.png" width="1000">
 
 *Figure 16 — Detailed TCP SYN with ports, flags, window, and TCP options.*
 
@@ -1969,7 +1969,7 @@ After the TLS handshake is completed, the browser sends the HTTP request inside 
 
 ### 11.1. Main Document Request and Response Headers
 
-<img src="./Pasted image 20260725215710.png" width="1200">
+<img src="./assets/Pasted image 20260725215710.png" width="1200">
 
 *Figure 17 — Main HTTP request to `https://rnb-team.com/`, the `200 OK` response, and server headers in Chrome DevTools.*
 
@@ -1999,7 +1999,7 @@ Important response headers:
 
 ### 11.2. Request Headers
 
-<img src="./Pasted image 20260725215741.png" width="1200">
+<img src="./assets/Pasted image 20260725215741.png" width="1200">
 
 *Figure 18 — Headers of the main GET request and additional security headers of the response.*
 
@@ -2078,7 +2078,7 @@ I do not specify a particular origin server IP address or internal database beca
 
 After receiving the main HTML, the browser analyzes the document and finds links to additional resources.
 
-<img src="./Pasted image 20260725215835.png" width="700">
+<img src="./assets/Pasted image 20260725215835.png" width="700">
 
 *Figure 19 — List of the page's network resources: document, fonts, CSS, JavaScript, and images.*
 
